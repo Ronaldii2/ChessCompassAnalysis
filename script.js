@@ -18,7 +18,7 @@ function injectButton(analysisButton){
     // Duplicate the original button
     let newButton = analysisButton.cloneNode("deep");
     // Style it and link it to the Lichess import function.
-    newButton.childNodes[2].innerText = "Lichess Analysis";
+    newButton.childNodes[2].innerText = "Chess Compass Analysis";
     newButton.style.margin = "8px 0px 0px 0px";
     newButton.style.padding = "0px 0px 0px 0px";
     newButton.childNodes[0].classList.remove("icon-font-chess")
@@ -51,20 +51,21 @@ function sendToLichess(){
         // Exit out of download view (x button)
         document.querySelector("div.icon-font-chess.x.ui_outside-close-icon").click();
 
-        // 2. Send a POST request to Lichess to import the current game
-        let importUrl = "https://lichess.org/api/import"
-        let req = {pgn: PGN};
-        post(importUrl, req)
-            .then((response) => {
-                // Open the page on a new tab
-                let url = response["url"] ? response["url"] : "";
-                if (url) {
-                    let lichessPage = window.open(url);
-                } else alert("Could not import game");
-
-            }).catch((e) => {
-            alert("Error getting response from lichess.org");
-            throw new Error("Response error");
+        // 2. Send a POST request to Lichess to import the current game        
+        fetch("https://www.chesscompass.com/api/get_game_id", {
+            method: "post",
+            body: JSON.stringify({
+                gameData: PGN,
+            }),
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then(({ gameId }) => {
+            window.open(
+                "https://www.chesscompass.com/analyze/" + gameId,
+                "_blank"
+            );
         });
     });
 }
