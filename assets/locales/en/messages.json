@@ -1,11 +1,11 @@
 {
     "appName": {
-        "message": "lichessAnalysis"
+        "message": "ChessCompassAnalysis"
     },
     "appShortName": {
-        "message": "lichessAnalysis"
+        "message": "ChessCompassAnalysis"
     },
     "appDescription": {
-        "message": "A simple chrome browser extension for one-click analysis of Chess.com games on Lichess."
+        "message": "A simple chrome browser extension for one-click analysis of Chess.com games on ChessCompass."
     }
 }
